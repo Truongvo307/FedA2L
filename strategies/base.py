@@ -165,28 +165,6 @@ class Coordinator(SharedMethods):
         ).neighbors
 
     def _train(self, i):
-        # if self.parallel:
-        #     print("=================parallel")
-        #     i = 0
-        #     futures = []
-        #     idle_workers = deque(range(self.num_nodes))
-        #     job_map = {}
-        #     node_packages = {}
-        #     for node in self.nodes:
-        #         future = ray.remote(num_gpus=self.num_gpus / len(self.nodes))(
-        #             lambda n: n.train()
-        #         ).remote(node)
-        #         futures.append(future)
-                
-        #     all_node_packages = ray.get(futures)    
-        #     for i, node_package in enumerate(all_node_packages):
-        #         node = self.nodes[i]
-        #         node.set_parameters1(node_package["model"])
-        #         node.update_optimizer_params(old=node.optimizer, new=node_package["optimizer"])
-        #         node.metrics["train_time"].append(node_package["train_time"])
-        #         node.train_samples = node_package["train_samples"]
-
-        # else:
         for node in self.nodes:
             node.iteration = i
             node.train()

@@ -83,11 +83,6 @@ class Options:
         parser.add_argument(
             "--balance", action="store_true", default=False, help="balance"
         )
-        parser.add_argument('--min_samples', type=int, default=1, help='Enforced minimum samples per client for Shakespeare NIID (if possible).')
-        parser.add_argument("--vocab_size", type=int, default=80, help="vocab size")
-        parser.add_argument("--embedding_dim", type=int, default=128, help="embedding dim")
-        parser.add_argument("--hidden_dim", type=int, default=256, help="hidden dim")
-        parser.add_argument('--seq_len', type=int, default=80, help='Sequence length for text datasets')
         parser.add_argument(
             "--partition",
             type=str,
@@ -169,9 +164,6 @@ class Options:
         parser.add_argument(
             "--dim", type=int, default=1024, help="Dimension for FedAvgCNN"
         )
-        parser.add_argument('--hidden_size', type=int, default=None, help='Number of features in the hidden state of an LSTM.')
-        parser.add_argument('--num_layers', type=int, default=None, help='Number of recurrent layers in an LSTM.')
-        parser.add_argument('--dropout', type=float, default=None, help='Dropout probability for LSTM layers.')
 
         getattr(__import__("strategies"), "apply_args_update")(parser)
 
@@ -248,32 +240,6 @@ class Options:
                 "plot_ylabel_step": 40,
                 "in_channels": 3,  # TinyImageNet has 3 color channels
                 "dim": 4096        # 512 * 8 * 8 if using a ResNet-like pooling
-            },
-            "shakespeare": {"plot_ylabel_step": 20 },
-            "AGNews": {"plot_ylabel_step": 20 },
-            "sent140": {
-                "plot_ylabel_step": 1,
-                # Standard params for the Sent140 model and data processing
-                "vocab_size": 10000,
-                "max_seq_len": 25,
-                "embedding_dim": 256, # Add model hyperparams
-                "hidden_size": 256,   # Add model hyperparams
-                "num_layers": 2,      # Add model hyperparams
-                "dropout": 0.5        # Add model hyperparams
-            },
-            "shakespeare": {
-                "plot_ylabel_step": 20,
-                # Standard params for the Shakespeare model
-                "seq_len": 80,
-                "vocab_size": 80,      # This will be overridden by the actual vocab size
-                "embedding_dim": 8,    # Standard for FedAvg paper
-                "hidden_size": 256,  # Standard for FedAvg paper
-                "num_layers": 2,       # Standard for FedAvg paper
-                "dropout": 0.5
-            },
-            "AGNews": {
-                # Assuming AGNews is a classification task with a few classes
-                "plot_ylabel_step": 1
             },
         }
         self.update_if_none(params=update_dict[self.args.dataset])

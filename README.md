@@ -40,7 +40,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 ```bash
 python -m venv dfl
-source dfl/bin/activate
+source ./dfl/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
@@ -71,31 +71,31 @@ python main.py --dataset=cifar100 --num_nodes=10 --times=3 --learning_rate=0.01 
 
 ### Core arguments
 
-| Argument | Type | Description | Typical value(s) |
-|---|---|---|---|
-| `--dataset` | `str` | Dataset name | `cifar10`, `cifar100`, `tinyimagenet` |
-| `--iid` | `bool` | Use IID split (`True`) or non-IID (`False`) | `True` / `False` |
-| `--alpha` | `float` | Dirichlet concentration for non-IID split | `0.1`, `0.3`, `1.0` |
-| `--model` | `str` | Model architecture | `CNN`, `ResNet18`, `ResNet34` |
-| `--num_nodes` / `--num_nodes` | `int` | Number of participating nodes | `10`, `20`, `50` |
-| `--iterations` | `int` | Total communication rounds | `300`, `500`, `1000` |
-| `--epochs` | `int` | Local epochs per round | `1`, `2`, `5` |
-| `--batch_size` | `int` | Local mini-batch size | `32`, `64`, `128` |
-| `--learning_rate` | `float` | Initial learning rate | `0.01`, `0.001` |
-| `--topology` | `str` | Client connectivity topology | `FullyConnected`, `ring`, `KConnected` |
-| `--framework` | `str` | Training framework/strategy | `DFedAvg`, `DFedAvg_Scheduler`, `DFedAvg_FedA2L` |
-| `--times` | `int` | Number of repeated runs | `1`, `3`, `5` |
-| `--name` | `str` | Experiment name for logs/output | any string |
+| Argument                      | Type    | Description                                 | Typical value(s)                                 |
+| ----------------------------- | ------- | ------------------------------------------- | ------------------------------------------------ |
+| `--dataset`                   | `str`   | Dataset name                                | `cifar10`, `cifar100`, `tinyimagenet`            |
+| `--iid`                       | `bool`  | Use IID split (`True`) or non-IID (`False`) | `True` / `False`                                 |
+| `--alpha`                     | `float` | Dirichlet concentration for non-IID split   | `0.1`, `0.3`, `1.0`                              |
+| `--model`                     | `str`   | Model architecture                          | `CNN`, `ResNet18`, `ResNet34`                    |
+| `--num_nodes` / `--num_nodes` | `int`   | Number of participating nodes               | `10`, `20`, `50`                                 |
+| `--iterations`                | `int`   | Total communication rounds                  | `300`, `500`, `1000`                             |
+| `--epochs`                    | `int`   | Local epochs per round                      | `1`, `2`, `5`                                    |
+| `--batch_size`                | `int`   | Local mini-batch size                       | `32`, `64`, `128`                                |
+| `--learning_rate`             | `float` | Initial learning rate                       | `0.01`, `0.001`                                  |
+| `--topology`                  | `str`   | Client connectivity topology                | `FullyConnected`, `ring`, `KConnected`           |
+| `--framework`                 | `str`   | Training framework/strategy                 | `DFedAvg`, `DFedAvg_Scheduler`, `DFedAvg_FedA2L` |
+| `--times`                     | `int`   | Number of repeated runs                     | `1`, `3`, `5`                                    |
+| `--name`                      | `str`   | Experiment name for logs/output             | any string                                       |
 
 ### FedA2L arguments
 
-| Argument | Notation | Type | Description | Tested range / default |
-|---|---|---|---|---|
-| `--start_tunning` | \(R_{\text{warm}}\) | `int` | Warm-up rounds before adaptation starts | `{10, 20, 40}` (CNN: `10`, ResNet: `40`) |
-| `--swin` | \(\rho\) | `int` | Temporal window size for divergence statistics | `{5, 10, 20}` (CNN: `5`, ResNet: `10`) |
-| `--tau` | \(\tau\) | `float` | Stability threshold for LR adjustment | `{1e-2, 1e-3, 1e-4}` (default: `1e-3`) |
-| `--beta` | \(\beta\) | `float` | Balance between local update intensity and network consensus | `{0.0, 0.2, 0.4, 0.6, 0.8, 1.0}` (default: `0.6`) |
-| `--kt` | \(\xi\) | `float` | Global decay constant for adaptation strength | `{0.05, 0.1, 0.3}` (CNN: `0.3`, ResNet: `0.1`) |
+| Argument          | Notation            | Type    | Description                                                  | Tested range / default                            |
+| ----------------- | ------------------- | ------- | ------------------------------------------------------------ | ------------------------------------------------- |
+| `--start_tunning` | \(R_{\text{warm}}\) | `int`   | Warm-up rounds before adaptation starts                      | `{10, 20, 40}` (CNN: `10`, ResNet: `40`)          |
+| `--swin`          | \(\rho\)            | `int`   | Temporal window size for divergence statistics               | `{5, 10, 20}` (CNN: `5`, ResNet: `10`)            |
+| `--tau`           | \(\tau\)            | `float` | Stability threshold for LR adjustment                        | `{1e-2, 1e-3, 1e-4}` (default: `1e-3`)            |
+| `--beta`          | \(\beta\)           | `float` | Balance between local update intensity and network consensus | `{0.0, 0.2, 0.4, 0.6, 0.8, 1.0}` (default: `0.6`) |
+| `--kt`            | \(\xi\)             | `float` | Global decay constant for adaptation strength                | `{0.05, 0.1, 0.3}` (CNN: `0.3`, ResNet: `0.1`)    |
 
 † For TinyImageNet, \(\xi = 0.05\) is used due to higher class diversity.
 
