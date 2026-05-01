@@ -1,0 +1,8 @@
+PyYaml==6.0.1
+scikit-learn==1.5.0
+matplotlib==3.9.0
+rich==13.7.1
+polars==0.20.31
+pandas
+seaborn
+pyarrow
